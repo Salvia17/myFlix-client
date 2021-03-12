@@ -38,7 +38,6 @@ export class MainView extends React.Component {
     });
   }
 
-
   render() {
     // If the state isn't initialized, this will throw on runtime
     // before the data is initially loaded
