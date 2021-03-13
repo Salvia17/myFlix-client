@@ -1,4 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+
+import './movie-view.scss';
 
 export class MovieView extends React.Component {
 
@@ -15,28 +20,41 @@ export class MovieView extends React.Component {
 
     return (
       <div className="movie-view">
-        <img className="movie-poster" src={movie.ImagePath} />
-        <div className="movie-title">
-          <span className="label">Title: </span>
-          <span className="value">{movie.Title}</span>
-        </div>
-        <div className="movie-description">
-          <span className="label">Description: </span>
-          <span className="value">{movie.Description}</span>
-        </div>
-
-        <div className="movie-genre">
-          <span className="label">Genre: </span>
-          <span className="value">{movie.Genre.Name}</span>
-        </div>
-        <div className="movie-director">
-          <span className="label">Director: </span>
-          <span className="value">{movie.Director.Name}</span>
-        </div>
-        <button className="back-button" onClick={() => onClick()}>Movie list</button>
+        <Card border="light">
+          <Card.Img variant="top" src={movie.ImagePath} />
+          <Card.Body>
+            <Card.Title>{movie.Title}</Card.Title>
+            <Card.Text>
+              <span className="label">Description: </span>
+              <span className="value">{movie.Description}</span>
+            </Card.Text>
+            <Card.Text>
+              <span className="label">Genre: </span>
+              <span className="value">{movie.Genre.Name}</span>
+            </Card.Text>
+            <Card.Text>
+              <span className="label">Director: </span>
+              <span className="value">{movie.Director.Name}</span>
+            </Card.Text>
+            <Button className="back-button" variant="dark" onClick={() => onClick()}>Movie list</Button>
+          </Card.Body>
+        </Card>
       </div>
-
-
     );
   }
 }
+
+MovieView.propTypes = {
+  movie: PropTypes.shape({
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired
+    }),
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired
+    })
+  }).isRequired,
+  onClick: PropTypes.func.isRequired
+};
