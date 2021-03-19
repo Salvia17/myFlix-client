@@ -1,5 +1,45 @@
+.login-header {
+  text-align: center;
+}
+
+.login-form {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+}
+.header {
+  text-align: center;
+}
+
+.form-register {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+}
+.open-button {
+  margin-top: 10px;
+}
+.back-button {
+  margin-top: 10px;
+}
+.mr-auto {
+  margin-right: 0rem !important;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  align-self: flex-end;
+}
+
+.main-view {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 .my-flix {
   color: steelblue;
+}
+
+.container {
+  padding: 5px;
 }
 
 /*# sourceMappingURL=/src.78399e21.css.map */
