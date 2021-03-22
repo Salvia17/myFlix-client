@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import './login-view.scss';
 
@@ -11,16 +13,29 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
-    // Send a request to the server for authentication, then call props.onLoggedIn(username)
-    props.onLoggedIn(username);
+    /* Send a request to the server for authentication */
+    axios.post('https://project-my-flix.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+      .then(response => {
+        const data = response.data;
+        props.onLoggedIn(data);
+      })
+      .catch(e => {
+        console.log('no such user')
+      });
   };
 
+  const register = () => {
+    window.open('/registration-view', '_self');
+  }
 
   return (
     <Form className='login-form'>
       <div className="login-header">
-        <h1 className='text-dark'>Log in</h1>
+        <h1 className='text-dark'>Welcome to myFlix!</h1>
+        <p className='mb-5'>Please login or register to continue.</p>
       </div>
       <Form.Group controlId="formUsername">
         <Form.Label>Username:</Form.Label>
@@ -32,8 +47,9 @@ export function LoginView(props) {
         <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
       </Form.Group>
       <Button variant="dark" type="submit" onClick={handleSubmit}>
-        Submit
+        Login
       </Button>
+      <Button variant="dark" type="link" onClick={props.register}>Register</Button>
     </Form>
   );
 }

@@ -22,6 +22,10 @@
 .back-button {
   margin-top: 10px;
 }
+
+.movie-view {
+  text-align: -webkit-center;
+}
 .mr-auto {
   margin-right: 0rem !important;
 }
@@ -33,6 +37,14 @@
 .main-view {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 15px;
 }
 .my-flix {
   color: steelblue;

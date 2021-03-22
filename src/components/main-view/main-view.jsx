@@ -4,6 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { LoginView } from '../login-view/login-view';
 import { RegisterView } from '../registration-view/registration-view'
@@ -24,7 +26,19 @@ export class MainView extends React.Component {
   }
   // One of the "hooks" available in a React Component
   componentDidMount() {
-    axios.get('https://project-my-flix.herokuapp.com/movies')
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      this.getMovies(accessToken);
+    }
+  }
+
+  getMovies(token) {
+    axios.get('https://project-my-flix.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(response => {
         // Assign the result to the state
         this.setState({
@@ -36,47 +50,60 @@ export class MainView extends React.Component {
       });
   }
 
-  onMovieClick(movie) {
-    this.setState({
-      selectedMovie: movie
-    });
-  }
+  // onMovieClick(movie) {
+  // this.setState({
+  //   selectedMovie: movie
+  //  });
+  // }
 
   /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user
+      user: authData.user.Username
     });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
   }
 
-  onRegister(register) {
+  logOut() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     this.setState({
-      register
+      user: null,
     });
+    console.log("logout successful");
+    alert("You have been successfully logged out");
+    window.open("/", "_self");
   }
 
-  returnToList() {
-    this.setState({
-      selectedMovie: null
-    });
-  }
+  //onRegister(register) {
+  // this.setState({
+  //  register
+  //  });
+  // }
+
+  //returnToList() {
+  // this.setState({
+  // selectedMovie: null
+  // });
+  // }
 
 
   render() {
-    // If the state isn't initialized, this will throw on runtime
-    // before the data is initially loaded
-    const { movies, selectedMovie, user, register } = this.state;
+    const { movies, user } = this.state;
 
-    if (!register) return <RegisterView onRegister={(register) => this.onRegister(register)} />
+    //if (!register) return <RegisterView onRegister={(register) => this.onRegister(register)} />
 
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
-    // Before the movies have been loaded
     if (!movies) return <div className="main-view" />;
 
     return (
-      <React.Fragment>
+      <Router>
         <div className='navigation'>
           <header>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -86,26 +113,23 @@ export class MainView extends React.Component {
                 <Nav className="mr-auto">
                   <Nav.Link href="#favourites">Favourite movies</Nav.Link>
                   <Nav.Link href="#account">Account</Nav.Link>
+                  <Nav.Link onClick={() => this.logOut()}>Log out</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>
           </header>
         </div>
-        <Row className="main-view justify-content-md-center">
-          {selectedMovie
-            ? (
-              <Col md={8}>
-                <MovieView movie={selectedMovie} onClick={() => this.returnToList()} />
-              </Col>
-            )
-            : movies.map(movie => (
-              <Col md={3}>
-                <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-              </Col>
-            ))
-          }
-        </Row>
-      </React.Fragment >
+        <div className="main-view">
+
+          <Route exact path="/" render={() =>
+            <div className="movie-grid">
+              {movies.map(m => <MovieCard key={m._id} movie={m} />)}
+            </div>
+          } />
+
+          <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+        </div>
+      </Router>
     );
   }
 }
