@@ -1,33 +1,40 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-
-import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 import './registration-view.scss';
 
 export function RegisterView(props) {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [birthday, setBirthday] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    axios.post('https://project-my-flix.herokuapp.com/users', {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday
-    })
-      .then(response => {
-        const data = response.data;
-        console.log(data);
-        window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+    if (username.length < 5) { alert("Usernames must be longer than 5 characters.") }
+    else if (!email.includes("@") || !email.includes(".")) { alert("Please use a valid email address.") }
+    else if (password.length < 1) { alert("Password is required.") }
+    else {
+      axios.post('https://project-my-flix.herokuapp.com/users', {
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthday
       })
-      .catch(e => {
-        console.log('error registering the user')
-      });
+        .then(response => {
+          props.onRegister("register");
+          const data = response.data;
+          console.log(data);
+          window.open('/', '_self');
+        })
+        .catch(e => {
+          console.log('error registering the user: ' + e)
+        });
+    }
 
     return (
       <React.Fragment>
@@ -51,7 +58,7 @@ export function RegisterView(props) {
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder='Enter Email'
+              placeholder='name@example.com'
             />
           </Form.Group>
           <Form.Group controlId='formBasicPassword'>
@@ -63,15 +70,6 @@ export function RegisterView(props) {
               placeholder='Enter Password'
             />
           </Form.Group>
-          <Form.Group controlId='formBasicConfirmPassword'>
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type='password'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder='Enter Confirm Password'
-            />
-          </Form.Group>
           <Form.Group controlId='formBasicBirthday'>
             <Form.Label>Birthday</Form.Label>
             <Form.Control
@@ -81,10 +79,14 @@ export function RegisterView(props) {
               placeholder='Enter Birthday'
             />
           </Form.Group>
-
-          <Button variant="dark" type="submit" onClick={handleSubmit}>
+          <Button variant="dark" type="submit" onClick={handleRegister}>
             Register
           </Button>
+          <Link to={`/`}>
+            <Button variant="dark" type="link">
+              Back
+        </Button>
+          </Link>
         </Form>
       </React.Fragment>
     );
@@ -94,8 +96,11 @@ export function RegisterView(props) {
     register: PropTypes.shape({
       username: PropTypes.string.isRequired,
       password: PropTypes.string.isRequired,
-      confirmPassword: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
       birthday: PropTypes.string.isRequired,
     }),
   };
 }
+
+export default RegisterView;
+

@@ -25,10 +25,6 @@ export function LoginView(props) {
       .catch(e => {
         console.log('no such user')
       });
-  };
-
-  const register = () => {
-    window.open('/registration-view', '_self');
   }
 
   return (
@@ -49,7 +45,11 @@ export function LoginView(props) {
       <Button variant="dark" type="submit" onClick={handleSubmit}>
         Login
       </Button>
-      <Button variant="dark" type="link" onClick={props.register}>Register</Button>
+      <Link to={`/register`}>
+        <Button variant="dark" type="link">
+          Register
+        </Button>
+      </Link>
     </Form>
   );
 }
