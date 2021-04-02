@@ -23,7 +23,8 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
-        console.log('no such user')
+        console.log('no such user');
+        alert('No such user');
       });
   }
 
@@ -59,8 +60,7 @@ LoginView.propTypes = {
     username: PropTypes.string.isRequired,
     pasword: PropTypes.string.isRequired
   }),
-  onLoggedIn: PropTypes.func.isRequired,
-  onRegister: PropTypes.func
+  onLoggedIn: PropTypes.func.isRequired
 };
 
 export default LoginView;

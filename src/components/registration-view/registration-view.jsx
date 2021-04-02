@@ -26,7 +26,6 @@ export function RegisterView(props) {
         Birthday: birthday
       })
         .then(response => {
-          props.onRegister("register");
           const data = response.data;
           console.log(data);
           window.open('/', '_self');
@@ -35,72 +34,74 @@ export function RegisterView(props) {
           console.log('error registering the user: ' + e)
         });
     }
-
-    return (
-      <React.Fragment>
-        <Form className='form-register'>
-          <div className="header">
-            <h1 className='text-dark'>Welcome to myFlix!</h1>
-            <p className='mb-5'>Please register to continue.</p>
-          </div>
-          <Form.Group controlId='formBasicText'>
-            <Form.Label>Username</Form.Label>
-            <Form.Control
-              type='text'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder='Enter Username'
-            />
-          </Form.Group>
-          <Form.Group controlId='formBasicEmail'>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder='name@example.com'
-            />
-          </Form.Group>
-          <Form.Group controlId='formBasicPassword'>
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder='Enter Password'
-            />
-          </Form.Group>
-          <Form.Group controlId='formBasicBirthday'>
-            <Form.Label>Birthday</Form.Label>
-            <Form.Control
-              type='date'
-              value={birthday}
-              onChange={(e) => setBirthday(e.target.value)}
-              placeholder='Enter Birthday'
-            />
-          </Form.Group>
-          <Button variant="dark" type="submit" onClick={handleRegister}>
-            Register
-          </Button>
-          <Link to={`/`}>
-            <Button variant="dark" type="link">
-              Back
-        </Button>
-          </Link>
-        </Form>
-      </React.Fragment>
-    );
   }
 
-  RegisterView.propTypes = {
-    register: PropTypes.shape({
-      username: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      birthday: PropTypes.string.isRequired,
-    }),
-  };
+  return (
+    <Form className='form-register'>
+      <div className="header">
+        <h1 className='text-dark'>Welcome to myFlix!</h1>
+        <p className='mb-5'>Please register to continue.</p>
+      </div>
+      <Form.Group controlId='formBasicText'>
+        <Form.Label>Username</Form.Label>
+        <Form.Control
+          type='text'
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder='Enter Username'
+        />
+      </Form.Group>
+      <Form.Group controlId='formBasicEmail'>
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          type='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder='name@example.com'
+        />
+      </Form.Group>
+      <Form.Group controlId='formBasicPassword'>
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder='Enter Password'
+        />
+      </Form.Group>
+      <Form.Group controlId='formBasicBirthday'>
+        <Form.Label>Birthday</Form.Label>
+        <Form.Control
+          type='date'
+          value={birthday}
+          onChange={(e) => setBirthday(e.target.value)}
+          placeholder='Enter Birthday'
+        />
+      </Form.Group>
+      <Button variant="dark" type="submit" onClick={handleRegister}>
+        Register
+          </Button>
+      <Link to={`/`}>
+        <Button variant="dark" type="link">
+          Back
+        </Button>
+      </Link>
+    </Form>
+  );
 }
+
+
+
+RegisterView.propTypes = {
+  register: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    birthdate: PropTypes.instanceOf(Date).isRequired,
+  }),
+  onRegister: PropTypes.func.isRequired
+};
+
 
 export default RegisterView;
 

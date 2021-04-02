@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { LoginView } from '../login-view/login-view';
-import { RegisterView } from '../registration-view/registration-view'
+import { RegisterView } from '../registration-view/registration-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
@@ -18,14 +18,25 @@ import './main-view.scss';
 import { Button } from 'react-bootstrap';
 
 export class MainView extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       movies: [],
       //selectedMovie: null,
       user: null,
       register: []
     };
+  }
+
+  // One of the "hooks" available in a React Component
+  componentDidMount() {
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({
+        user: localStorage.getItem('user')
+      });
+      this.getMovies(accessToken);
+    }
   }
 
   getMovies(token) {
@@ -41,17 +52,6 @@ export class MainView extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-  }
-
-  // One of the "hooks" available in a React Component
-  componentDidMount() {
-    let accessToken = localStorage.getItem('token');
-    if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
-      this.getMovies(accessToken);
-    }
   }
 
 
@@ -88,7 +88,7 @@ export class MainView extends React.Component {
 
   onRegister(register) {
     this.setState({
-      register: register
+      register
     });
   }
 
@@ -101,7 +101,6 @@ export class MainView extends React.Component {
 
   render() {
     const { movies, user, register } = this.state;
-
 
     if (!movies) return <div className="main-view" />;
 
