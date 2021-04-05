@@ -25,26 +25,24 @@ export function ProfileUpdate(props) {
       localStorage.getItem("user");
 
     if (isValid) {
-      axios
-        .put(
-          url,
-          {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday,
+      axios.put(url,
+        {
+          Username: username,
+          Password: password,
+          Email: email,
+          Birthday: birthday,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+        }
+      )
         .then((response) => {
           const data = response.data;
           localStorage.setItem("user", data.Username);
           alert("Your profile was updated successfully");
-          window.open("/", "_self");
+          window.open("/users/" + localStorage.getItem("user"), "_self");
         })
         .catch((e) => {
           console.log(e);

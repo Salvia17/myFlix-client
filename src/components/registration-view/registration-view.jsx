@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
-import './registration-view.scss';
+import "./registration-view.scss";
 
 export function RegisterView(props) {
   const [username, setUsername] = useState("");
@@ -15,11 +15,11 @@ export function RegisterView(props) {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    if (username.length < 5) { alert("Usernames must be longer than 5 characters.") }
+    if (username.length < 5) { alert("Username must be longer than 5 characters.") }
     else if (!email.includes("@") || !email.includes(".")) { alert("Please use a valid email address.") }
     else if (password.length < 1) { alert("Password is required.") }
     else {
-      axios.post('https://project-my-flix.herokuapp.com/users', {
+      axios.post("https://project-my-flix.herokuapp.com/users", {
         Username: username,
         Password: password,
         Email: email,
@@ -37,45 +37,45 @@ export function RegisterView(props) {
   }
 
   return (
-    <Form className='form-register'>
+    <Form className="form-register">
       <div className="header">
-        <h1 className='text-dark'>Welcome to myFlix!</h1>
-        <p className='mb-5'>Please register to continue.</p>
+        <h1 className="text-dark">Welcome to myFlix!</h1>
+        <p className="mb-5">Please register to continue.</p>
       </div>
-      <Form.Group controlId='formBasicText'>
+      <Form.Group controlId="formBasicText">
         <Form.Label>Username</Form.Label>
         <Form.Control
-          type='text'
+          type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder='Enter Username'
+          placeholder="Enter Username"
         />
       </Form.Group>
-      <Form.Group controlId='formBasicEmail'>
+      <Form.Group controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
-          type='email'
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder='name@example.com'
+          placeholder="name@example.com"
         />
       </Form.Group>
-      <Form.Group controlId='formBasicPassword'>
+      <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
-          type='password'
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder='Enter Password'
+          placeholder="Enter Password"
         />
       </Form.Group>
-      <Form.Group controlId='formBasicBirthday'>
+      <Form.Group controlId="formBasicBirthday">
         <Form.Label>Birthday</Form.Label>
         <Form.Control
-          type='date'
+          type="date"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
-          placeholder='Enter Birthday'
+          placeholder="Enter Birthday"
         />
       </Form.Group>
       <Button variant="dark" type="submit" onClick={handleRegister}>

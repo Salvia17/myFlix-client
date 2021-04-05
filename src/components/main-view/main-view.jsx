@@ -22,7 +22,6 @@ export class MainView extends React.Component {
     super(props);
     this.state = {
       movies: [],
-      //selectedMovie: null,
       user: null,
       register: []
     };
@@ -54,16 +53,6 @@ export class MainView extends React.Component {
       });
   }
 
-
-
-  // onMovieClick(movie) {
-  // this.setState({
-  //   selectedMovie: movie
-  //  });
-  // }
-
-  /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
-
   onLoggedIn(authData) {
     console.log(authData);
     this.setState({
@@ -91,13 +80,6 @@ export class MainView extends React.Component {
       register
     });
   }
-
-  //returnToList() {
-  // this.setState({
-  // selectedMovie: null
-  // });
-  // }
-
 
   render() {
     const { movies, user, register } = this.state;
@@ -128,9 +110,9 @@ export class MainView extends React.Component {
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                   <Nav className="mr-auto">
                     <Link to={`/users/${user}`}>
-                      <Button variant="dark" type="link">Account</Button>
+                      <Button className="nav-button" variant="dark" type="link">Account</Button>
                     </Link>
-                    <Button variant="dark" type="link" onClick={() => this.logOut()}>Log out</Button>
+                    <Button className="nav-button" variant="dark" type="link" onClick={() => this.logOut()}>Log out</Button>
                   </Nav>
                 </Navbar.Collapse>
               </Navbar>
@@ -172,7 +154,7 @@ export class MainView extends React.Component {
           />
 
           <Route exact path="/users/:username" render={() =>
-            <ProfileView user={localStorage.getItem('user')} movies={movies} />
+            <ProfileView user={localStorage.getItem("user")} movies={movies} />
           } />
 
           <Route path="/update" render={() => {

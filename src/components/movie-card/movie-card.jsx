@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import React from "react";
+import PropTypes from "prop-types";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 
-import './movie-card.scss';
+import "./movie-card.scss";
 
 export class MovieCard extends React.Component {
   render() {
@@ -17,7 +17,7 @@ export class MovieCard extends React.Component {
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description.substring(0, 90)}...</Card.Text>
           <Link to={`/movies/${movie._id}`}>
-            <Button variant="dark" className='open-button'>Open</Button>
+            <Button variant="dark" className="open-button">Open</Button>
           </Link>
         </Card.Body>
       </Card>

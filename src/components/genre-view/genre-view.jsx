@@ -34,6 +34,7 @@ export class GenreView extends React.Component {
           </Link>
         </div>
         <h4>{genre.Genre.Name} movies</h4>
+
         <Container>
           <div className="d-flex row mt-3 ml-2">
             {movies.map((movie) => {
@@ -42,8 +43,7 @@ export class GenreView extends React.Component {
                   <div key={movie._id}>
                     <Card border="light"
                       className="mb-3 mr-2 h-100"
-                      style={{ width: "16rem" }}
-                    >
+                      style={{ width: "16rem" }}>
                       <Card.Img variant="top" src={movie.ImagePath} />
                       <Card.Body>
                         <Card.Title>{movie.Title}</Card.Title>
@@ -53,8 +53,7 @@ export class GenreView extends React.Component {
                       </Card.Body>
                       <Card.Footer className="bg-white border-top-0">
                         <Link to={`/movies/${movie._id}`}>
-                          <Button variant="dark" type="link"
-                          >
+                          <Button variant="dark" type="link">
                             Read more
                           </Button>
                         </Link>
@@ -73,9 +72,9 @@ export class GenreView extends React.Component {
 
 GenreView.propTypes = {
   Movie: PropTypes.shape({
-    Genre: {
+    Genre: PropTypes.shape({
       Name: PropTypes.string.isRequired,
       Description: PropTypes.string.isRequired,
-    },
+    }),
   }),
 };

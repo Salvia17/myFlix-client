@@ -58,8 +58,7 @@ export class DirectorView extends React.Component {
                       </Card.Body>
                       <Card.Footer className="bg-white border-top-0">
                         <Link to={`/movies/${movie._id}`}>
-                          <Button variant="dark" type="link"
-                          >
+                          <Button variant="dark" type="link">
                             Read more
                           </Button>
                         </Link>
@@ -78,10 +77,10 @@ export class DirectorView extends React.Component {
 
 DirectorView.propTypes = {
   Movie: PropTypes.shape({
-    Director: {
+    Director: PropTypes.shape({
       Name: PropTypes.string.isRequired,
       Bio: PropTypes.string.isRequired,
       Birth: PropTypes.string.isRequired,
-    },
+    }),
   }),
 };

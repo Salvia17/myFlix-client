@@ -63,10 +63,7 @@
 }
 .mr-auto {
   margin-right: 0rem !important;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-  align-self: flex-end;
+  align-items: flex-end;
 }
 
 .main-view {
