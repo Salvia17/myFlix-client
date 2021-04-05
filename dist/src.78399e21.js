@@ -40564,7 +40564,7 @@ function (_React$Component) {
         }
       }).then(function (response) {
         console.log(response);
-        window.open("/users/" + localStorage.getItem("user"), "_self");
+        window.open("/", "_self");
         alert("Added to favorites!");
       });
     }
@@ -41134,8 +41134,10 @@ function (_React$Component) {
       var movies = this.props.movies;
       var favouriteMovies = this.state.favouriteMovies;
       if (!movies) alert("Please sign in");
-      return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, null, _react.default.createElement(_Col.default, {
-        sm: 8
+      return _react.default.createElement(_Container.default, null, _react.default.createElement(_Row.default, {
+        className: "justify-content-md-center"
+      }, _react.default.createElement(_Col.default, {
+        md: 8
       }, _react.default.createElement("div", {
         className: "userProfile"
       }, _react.default.createElement(_Form.default, null, _react.default.createElement("h1", {
@@ -41171,12 +41173,8 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this4.handleDelete();
         }
-      }, "Delete Account")))), _react.default.createElement(_Col.default, {
-        sm: 4
-      }, _react.default.createElement("div", {
-        className: "favoriteMovies"
-      }, _react.default.createElement("h1", {
-        className: "profile-details",
+      }, "Delete Account"))))), _react.default.createElement("h1", {
+        className: "favorite-details",
         style: {
           textAlign: "center"
         }
@@ -41184,7 +41182,9 @@ function (_React$Component) {
         style: {
           textAlign: "center"
         }
-      }, "You don't have any favorite movies yet!"), favouriteMovies.length > 0 && movies.map(function (movie) {
+      }, "You don't have any favorite movies yet!"), _react.default.createElement(_Row.default, {
+        className: "favoriteMovies justify-content-md-center"
+      }, favouriteMovies.length > 0 && movies.map(function (movie) {
         if (movie._id === favouriteMovies.find(function (favMovie) {
           return favMovie === movie._id;
         })) {
@@ -41192,6 +41192,7 @@ function (_React$Component) {
             key: movie._id
           }, _react.default.createElement(_Card.default, {
             style: {
+              width: "15rem",
               border: "light"
             }
           }, _react.default.createElement(_Card.default.Img, {
@@ -41209,7 +41210,7 @@ function (_React$Component) {
             }
           }, "Remove"));
         }
-      })))));
+      })));
     }
   }]);
 
@@ -53148,7 +53149,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49814" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50885" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

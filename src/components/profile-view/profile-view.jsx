@@ -98,8 +98,8 @@ export class ProfileView extends React.Component {
     return (
 
       <Container>
-        <Row>
-          <Col sm={8}>
+        <Row className="justify-content-md-center">
+          <Col md={8}>
             <div className="userProfile">
               <Form>
                 <h1 className="profile-details">Profile Details</h1>
@@ -138,35 +138,33 @@ export class ProfileView extends React.Component {
               </Form>
             </div>
           </Col>
+        </Row>
 
-          <Col sm={4}>
-            <div className="favoriteMovies">
-              <h1 className="profile-details" style={{ textAlign: "center" }}>Favorite Movies</h1>
+        <h1 className="favorite-details" style={{ textAlign: "center" }}>Favorite Movies</h1>
+        {favouriteMovies.length === 0 && <div style={{ textAlign: "center" }}>You don't have any favorite movies yet!</div>}
 
-              {favouriteMovies.length === 0 && <div style={{ textAlign: "center" }}>You don't have any favorite movies yet!</div>}
+        <Row className="favoriteMovies justify-content-md-center">
 
-              {favouriteMovies.length > 0 &&
-                movies.map((movie) => {
-                  if (movie._id === favouriteMovies.find((favMovie) => favMovie === movie._id)) {
-                    return (
-                      <div key={movie._id}>
-                        <Card style={{ border: "light" }}>
-                          <Card.Img variant="top" src={movie.ImagePath} />
-                          <Card.Body>
-                            <Link className="text-muted" to={`/movies/${movie._id}`}>
-                              <Card.Title>{movie.Title}</Card.Title>
-                            </Link>
-                          </Card.Body>
-                        </Card>
-                        <Button size="sm" variant="dark" className="remove-favorite" onClick={() => this.removeFavorite(movie)}>
-                          Remove
+          {favouriteMovies.length > 0 &&
+            movies.map((movie) => {
+              if (movie._id === favouriteMovies.find((favMovie) => favMovie === movie._id)) {
+                return (
+                  <div key={movie._id}>
+                    <Card style={{ width: "15rem", border: "light" }}>
+                      <Card.Img variant="top" src={movie.ImagePath} />
+                      <Card.Body>
+                        <Link className="text-muted" to={`/movies/${movie._id}`}>
+                          <Card.Title>{movie.Title}</Card.Title>
+                        </Link>
+                      </Card.Body>
+                    </Card>
+                    <Button size="sm" variant="dark" className="remove-favorite" onClick={() => this.removeFavorite(movie)}>
+                      Remove
                         </Button>
-                      </div>
-                    );
-                  }
-                })}
-            </div>
-          </Col>
+                  </div>
+                );
+              }
+            })}
         </Row>
       </Container>
 
