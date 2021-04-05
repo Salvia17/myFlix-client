@@ -20,8 +20,8 @@ export class ProfileView extends React.Component {
       username: "",
       password: "",
       email: "",
-      dob: "",
-      favoriteMovies: [],
+      birthday: "",
+      favouriteMovies: [],
       movies: "",
     };
   }
@@ -49,8 +49,8 @@ export class ProfileView extends React.Component {
           username: response.data.Username,
           password: response.data.Password,
           email: response.data.Email,
-          dob: this.formatDate(response.data.Birthday),
-          favoriteMovies: response.data.FavoriteMovies,
+          birthday: this.formatDate(response.data.Birthday),
+          favouriteMovies: response.data.FavouriteMovies,
         });
       });
   }
@@ -68,6 +68,7 @@ export class ProfileView extends React.Component {
       })
       .then((response) => {
         console.log(response);
+        alert("Removed from favorites!");
         this.componentDidMount();
       });
   }
@@ -75,35 +76,36 @@ export class ProfileView extends React.Component {
   handleDelete() {
     let token = localStorage.getItem("token");
     let user = localStorage.getItem("user");
-    axios
-      .delete(
-        `https://project-my-flix.herokuapp.com/users/${user}`, { headers: { Authorization: `Bearer ${token}` } }
-      )
-      .then(() => {
-        alert(user + " has been deleted");
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        window.location.pathname = "/";
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (confirm("Are you sure you want to delete your account?")) {
+      axios
+        .delete(
+          `https://project-my-flix.herokuapp.com/users/${user}`, { headers: { Authorization: `Bearer ${token}` } }
+        )
+        .then(() => {
+          alert(user + " has been deleted");
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          window.location.pathname = "/";
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 
   render() {
     const { movies } = this.props;
-    const favoriteMovieList = movies.filter((movie) => {
-      return this.state.favoriteMovies.includes(movie._id);
-    });
+    const { favouriteMovies } = this.state;
 
     if (!movies) alert("Please sign in");
     return (
-      <div className="userProfile" style={{ display: "flex" }}>
-        <Container>
-          <Row>
-            <Col>
-              <Form style={{ width: "24rem", float: "left" }}>
-                <h1 style={{ textAlign: "center" }}>Profile Details</h1>
+
+      <Container>
+        <Row>
+          <Col sm={8}>
+            <div className="userProfile">
+              <Form>
+                <h1 className="profile-details">Profile Details</h1>
                 <Form.Group controlId="formBasicUsername">
                   <h3>Username: </h3>
                   <Form.Label>{this.state.username}</Form.Label>
@@ -114,60 +116,54 @@ export class ProfileView extends React.Component {
                 </Form.Group>
                 <Form.Group controlId="formBasicDate">
                   <h3>Date of Birth:</h3>
-                  <Form.Label>{this.state.dob}</Form.Label>
+                  <Form.Label>{this.state.birthday}</Form.Label>
                 </Form.Group>
                 <Link to={`/update/${this.state.username}`}>
-                  <Button className="profile-button" variant="dark" style={{ width: "15rem" }}
-                  >
+                  <Button className="profile-button" variant="dark" style={{ width: "10rem" }}>
                     Edit Profile
-                    </Button>
+                  </Button>
                 </Link>
                 <Link to={`/`}>
-                  <Button className="profile-button" variant="dark" style={{ width: "15rem" }}
-                  >
+                  <Button className="profile-button" variant="dark" style={{ width: "10rem" }}>
                     Back to Main
                   </Button>
                 </Link>
-                <Button className="profile-button" variant="dark" style={{ width: "15rem" }}
-                  onClick={() => this.handleDelete()}
-                >
+                <Button className="profile-button" variant="dark" style={{ width: "10rem" }}
+                  onClick={() => this.handleDelete()}>
                   Delete Account
                 </Button>
-
               </Form>
-            </Col>
-            <Col>
-              <div
-                className="favoriteMovies"
-                style={{
-                  float: "right",
-                  textAlign: "center",
-                  width: "24rem",
-                }}
-              >
-                <h1>Favorite Movies</h1>
-                {favoriteMovieList.map((movie) => {
-                  return (
-                    <div key={movie._id}>
-                      <Card>
-                        <Card.Img variant="top" src={movie.ImagePath} />
-                        <Card.Body>
-                          <Link to={`/movies/${movie._id}`}>
-                            <Card.Title>{movie.Title}</Card.Title>
-                          </Link>
-                        </Card.Body>
-                      </Card>
-                      <Button onClick={() => this.removeFavorite(movie)}>
-                        Remove
-                      </Button>
-                    </div>
-                  );
+            </div>
+          </Col>
+          <Col sm={4}>
+            <div className="favoriteMovies">
+              <h1 className="profile-details" style={{ textAlign: "center" }}>Favorite Movies</h1>
+              {favouriteMovies.length === 0 && <div style={{ textAlign: "center" }}>You don't have any favorite movies yet!</div>}
+              {favouriteMovies.length > 0 &&
+                movies.map((movie) => {
+                  if (movie._id === favouriteMovies.find((favMovie) => favMovie === movie._id)) {
+                    return (
+                      <div key={movie._id}>
+                        <Card style={{ border: "light" }}>
+                          <Card.Img variant="top" src={movie.ImagePath} />
+                          <Card.Body>
+                            <Link className="text-muted" to={`/movies/${movie._id}`}>
+                              <Card.Title>{movie.Title}</Card.Title>
+                            </Link>
+                          </Card.Body>
+                        </Card>
+                        <Button size="sm" variant="dark" className="remove-favorite" onClick={() => this.removeFavorite(movie)}>
+                          Remove
+                        </Button>
+                      </div>
+                    );
+                  }
                 })}
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+
     );
   }
 }

@@ -24,7 +24,7 @@ export function LoginView(props) {
       })
       .catch(e => {
         console.log('no such user');
-        alert('No such user');
+        alert('Incorrect username or password');
       });
   }
 
@@ -36,12 +36,16 @@ export function LoginView(props) {
       </div>
       <Form.Group controlId="formUsername">
         <Form.Label>Username:</Form.Label>
-        <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
+        <Form.Control type="text"
+          onChange={e => setUsername(e.target.value)}
+          placeholder='Enter Username' />
       </Form.Group>
 
       <Form.Group controlId="formPassword">
         <Form.Label>Password:</Form.Label>
-        <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
+        <Form.Control type="password"
+          onChange={e => setPassword(e.target.value)}
+          placeholder='Enter Password' />
       </Form.Group>
       <Button variant="dark" type="submit" onClick={handleSubmit}>
         Login

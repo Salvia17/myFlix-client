@@ -1,21 +1,21 @@
-import React from 'react';
-import axios from 'axios';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import React from "react";
+import axios from "axios";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { LoginView } from '../login-view/login-view';
-import { RegisterView } from '../registration-view/registration-view';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-import { DirectorView } from '../director-view/director-view';
-import { GenreView } from '../genre-view/genre-view';
-import { ProfileView } from '../profile-view/profile-view';
-import { ProfileUpdate } from '../profile-update/profile-update';
+import { LoginView } from "../login-view/login-view";
+import { RegisterView } from "../registration-view/registration-view";
+import { MovieCard } from "../movie-card/movie-card";
+import { MovieView } from "../movie-view/movie-view";
+import { DirectorView } from "../director-view/director-view";
+import { GenreView } from "../genre-view/genre-view";
+import { ProfileView } from "../profile-view/profile-view";
+import { ProfileUpdate } from "../profile-update/profile-update";
 
-import './main-view.scss';
-import { Button } from 'react-bootstrap';
+import "./main-view.scss";
+import { Button } from "react-bootstrap";
 
 export class MainView extends React.Component {
   constructor(props) {
@@ -30,17 +30,17 @@ export class MainView extends React.Component {
 
   // One of the "hooks" available in a React Component
   componentDidMount() {
-    let accessToken = localStorage.getItem('token');
+    let accessToken = localStorage.getItem("token");
     if (accessToken !== null) {
       this.setState({
-        user: localStorage.getItem('user')
+        user: localStorage.getItem("user")
       });
       this.getMovies(accessToken);
     }
   }
 
   getMovies(token) {
-    axios.get('https://project-my-flix.herokuapp.com/movies', {
+    axios.get("https://project-my-flix.herokuapp.com/movies", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
@@ -70,8 +70,8 @@ export class MainView extends React.Component {
       user: authData.user.Username
     });
 
-    localStorage.setItem('token', authData.token);
-    localStorage.setItem('user', authData.user.Username);
+    localStorage.setItem("token", authData.token);
+    localStorage.setItem("user", authData.user.Username);
     this.getMovies(authData.token);
   }
 
@@ -107,7 +107,7 @@ export class MainView extends React.Component {
     return (
       <Router>
         {!user ? (
-          <div className='navigation'>
+          <div className="navigation">
             <header>
               <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Navbar.Brand>MyFlix</Navbar.Brand>
@@ -118,7 +118,7 @@ export class MainView extends React.Component {
             </header>
           </div>
         ) : (
-          <div className='navigation'>
+          <div className="navigation">
             <header>
               <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
                 <Link to={`/`}>
@@ -147,8 +147,9 @@ export class MainView extends React.Component {
           } />
 
           <Route path="/register" render={() => {
-            if (!register) return <RegisterView onRegister={(register) => this.onRegister(register)} />;
+            if (!user) return <RegisterView onRegister={(register) => this.onRegister(register)} />;
           }} />
+
 
           <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
           <Route path="/genres/:name" render={({ match }) => {

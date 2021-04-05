@@ -52,6 +52,15 @@
 .profile-button {
   margin-bottom: 5px;
 }
+
+.remove-favorite {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.profile-details {
+  margin-bottom: 15px;
+}
 .mr-auto {
   margin-right: 0rem !important;
 }
