@@ -7,6 +7,10 @@
   margin-right: 20px;
   padding: 20px;
 }
+
+.btn {
+  margin-right: 20px;
+}
 .header {
   text-align: center;
 }
@@ -22,17 +26,57 @@
 .back-button {
   margin-top: 10px;
 }
-.mr-auto {
-  margin-right: 0rem !important;
+
+.movie-view {
+  text-align: -webkit-center;
+}
+.director-title, h4 {
+  margin-bottom: 20px;
 }
 
-.navbar-dark .navbar-nav .nav-link {
-  align-self: flex-end;
+.button-div {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.director {
+  text-align: center;
+}
+.genre {
+  text-align: center;
+}
+
+.genre-title, h4 {
+  margin-bottom: 20px;
+}
+.profile-button {
+  margin-bottom: 5px;
+}
+
+.remove-favorite {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.profile-details {
+  margin-bottom: 15px;
+}
+.mr-auto {
+  margin-right: 0rem !important;
+  align-items: flex-end;
 }
 
 .main-view {
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 15px;
 }
 .my-flix {
   color: steelblue;
