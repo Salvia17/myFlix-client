@@ -61,6 +61,30 @@
 .profile-details {
   margin-bottom: 15px;
 }
+
+.userProfile {
+  text-align: center;
+}
+
+.favorite-details {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.favoriteMovies {
+  text-align: -webkit-center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+@media all and (max-width: 768px) {
+  .favoriteMovies {
+    display: block;
+    text-align: -webkit-center;
+  }
+}
 .mr-auto {
   margin-right: 0rem !important;
   align-items: flex-end;
