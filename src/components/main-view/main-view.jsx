@@ -1,29 +1,30 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
+import { setMovies, setUser } from '../../actions/actions';
 import { LoginView } from "../login-view/login-view";
 import { RegisterView } from "../registration-view/registration-view";
-import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { DirectorView } from "../director-view/director-view";
 import { GenreView } from "../genre-view/genre-view";
 import { ProfileView } from "../profile-view/profile-view";
 import { ProfileUpdate } from "../profile-update/profile-update";
+import MoviesList from '../movies-list/movies-list';
 
 import "./main-view.scss";
-import { Button } from "react-bootstrap";
 
 export class MainView extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       movies: [],
       user: null,
-      register: []
     };
   }
 
@@ -43,10 +44,7 @@ export class MainView extends React.Component {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => {
-        // Assign the result to the state
-        this.setState({
-          movies: response.data
-        });
+        this.props.setMovies(response.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -75,14 +73,9 @@ export class MainView extends React.Component {
     window.open("/", "_self");
   }
 
-  onRegister(register) {
-    this.setState({
-      register
-    });
-  }
-
   render() {
-    const { movies, user, register } = this.state;
+    let { movies } = this.props;
+    let { user } = this.state;
 
     if (!movies) return <div className="main-view" />;
 
@@ -122,16 +115,13 @@ export class MainView extends React.Component {
         <div className="main-view">
           <Route exact path="/" render={() => {
             if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-            return <div className="movie-grid">
-              {movies.map(m => <MovieCard key={m._id} movie={m} />)}
-            </div>
+            return <MoviesList movies={movies} />
           }
           } />
 
           <Route path="/register" render={() => {
-            if (!user) return <RegisterView onRegister={(register) => this.onRegister(register)} />;
+            return <RegisterView />;
           }} />
-
 
           <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
           <Route path="/genres/:name" render={({ match }) => {
@@ -166,3 +156,12 @@ export class MainView extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return {
+    movies: state.movies,
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);
