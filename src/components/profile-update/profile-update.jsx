@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export function ProfileUpdate(props) {
+export function ProfileUpdate() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
