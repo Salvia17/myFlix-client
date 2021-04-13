@@ -160,7 +160,8 @@ export class MainView extends React.Component {
 let mapStateToProps = state => {
   return {
     movies: state.movies,
-    user: state.user
+    user: state.user,
+    register: state.register
   }
 }
 

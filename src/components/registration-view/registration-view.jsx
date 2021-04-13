@@ -32,6 +32,7 @@ export function RegisterView(props) {
         })
         .catch(e => {
           console.log('error registering the user: ' + e)
+          alert('Uh-Oh! Something went wrong. Perhaps try a different username?');
         });
     }
   }
@@ -46,39 +47,43 @@ export function RegisterView(props) {
         <Form.Label>Username</Form.Label>
         <Form.Control
           type="text"
+          placeholder="Enter Username"
+          required
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter Username"
         />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
+          placeholder="name@example.com"
+          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="name@example.com"
+
         />
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
           type="password"
+          placeholder="Enter Password"
+          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter Password"
         />
       </Form.Group>
       <Form.Group controlId="formBasicBirthday">
         <Form.Label>Birthday</Form.Label>
         <Form.Control
           type="date"
+          required
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
-          placeholder="Enter Birthday"
         />
       </Form.Group>
-      <Button variant="dark" type="submit" onClick={handleRegister}>
+      <Button variant="dark" onClick={handleRegister}>
         Register
           </Button>
       <Link to={`/`}>
@@ -99,9 +104,7 @@ RegisterView.propTypes = {
     email: PropTypes.string.isRequired,
     birthdate: PropTypes.instanceOf(Date).isRequired,
   }),
-  onRegister: PropTypes.func.isRequired
 };
-
 
 export default RegisterView;
 

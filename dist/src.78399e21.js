@@ -54221,6 +54221,7 @@ function RegisterView(props) {
         window.open('/', '_self');
       }).catch(function (e) {
         console.log('error registering the user: ' + e);
+        alert('Uh-Oh! Something went wrong. Perhaps try a different username?');
       });
     }
   };
@@ -54237,41 +54238,43 @@ function RegisterView(props) {
     controlId: "formBasicText"
   }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
     type: "text",
+    placeholder: "Enter Username",
+    required: true,
     value: username,
     onChange: function onChange(e) {
       return setUsername(e.target.value);
-    },
-    placeholder: "Enter Username"
+    }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicEmail"
   }, _react.default.createElement(_Form.default.Label, null, "Email"), _react.default.createElement(_Form.default.Control, {
     type: "email",
+    placeholder: "name@example.com",
+    required: true,
     value: email,
     onChange: function onChange(e) {
       return setEmail(e.target.value);
-    },
-    placeholder: "name@example.com"
+    }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicPassword"
   }, _react.default.createElement(_Form.default.Label, null, "Password"), _react.default.createElement(_Form.default.Control, {
     type: "password",
+    placeholder: "Enter Password",
+    required: true,
     value: password,
     onChange: function onChange(e) {
       return setPassword(e.target.value);
-    },
-    placeholder: "Enter Password"
+    }
   })), _react.default.createElement(_Form.default.Group, {
     controlId: "formBasicBirthday"
   }, _react.default.createElement(_Form.default.Label, null, "Birthday"), _react.default.createElement(_Form.default.Control, {
     type: "date",
+    required: true,
     value: birthday,
     onChange: function onChange(e) {
       return setBirthday(e.target.value);
-    },
-    placeholder: "Enter Birthday"
+    }
   })), _react.default.createElement(_Button.default, {
     variant: "dark",
-    type: "submit",
     onClick: handleRegister
   }, "Register"), _react.default.createElement(_reactRouterDom.Link, {
     to: "/"
@@ -54287,8 +54290,7 @@ RegisterView.propTypes = {
     password: _propTypes.default.string.isRequired,
     email: _propTypes.default.string.isRequired,
     birthdate: _propTypes.default.instanceOf(Date).isRequired
-  }),
-  onRegister: _propTypes.default.func.isRequired
+  })
 };
 var _default = RegisterView;
 exports.default = _default;
@@ -55622,7 +55624,8 @@ exports.MainView = MainView;
 var mapStateToProps = function mapStateToProps(state) {
   return {
     movies: state.movies,
-    user: state.user
+    user: state.user,
+    register: state.register
   };
 };
 
@@ -55799,7 +55802,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54629" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49909" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
