@@ -15,5 +15,9 @@ server-side code (REST API and database). The whole myFlix project is built usin
 <br>
 By default path to index.html is 'src/index.html'
 <br>
+<h3>Note: If you do not have parcel installed, run the following command in project directory:
+  <br>
+  <li>npm install --save-dev parcel-bundler</li>
+  <br>
 <h3>Run the application</h3>
 <li>Open the application in your browers on http://localhost:1234/</li>
