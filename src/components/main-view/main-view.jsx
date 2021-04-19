@@ -20,8 +20,8 @@ import MoviesList from '../movies-list/movies-list';
 import "./main-view.scss";
 
 export class MainView extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       movies: [],
       user: null,
