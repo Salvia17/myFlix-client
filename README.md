@@ -14,11 +14,12 @@ server-side code (REST API and database). The whole myFlix project is built usin
 <li>parcel [path to index.html]</li>
 <br>
 By default path to index.html is 'src/index.html'
+<br><br>
+If following error occurs "Error: Got unexpected undefined"
 <br>
-If following error occurs **"Error: Got unexpected undefined"**
 to build run parcel [path to index.html] --no-cache.
 <br>
-Discussion about this bug can be found [here](https://github.com/parcel-bundler/parcel/issues/5196).
+Discussion about this bug can be found here: https://github.com/parcel-bundler/parcel/issues/5196.
 <br><br>
 <b>Note: If you do not have parcel installed, run the following command in project directory:</b>
   <br>
