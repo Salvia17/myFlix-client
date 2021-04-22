@@ -17,7 +17,7 @@ By default path to index.html is 'src/index.html'
 <br><br>
 If following error occurs "Error: Got unexpected undefined"
 <br>
-to build run parcel [path to index.html] --no-cache.
+<li>to build run parcel [path to index.html] --no-cache.</li>
 <br>
 Discussion about this bug can be found here: https://github.com/parcel-bundler/parcel/issues/5196.
 <br><br>
