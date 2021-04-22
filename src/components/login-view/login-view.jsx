@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 
 import "./login-view.scss";
 
@@ -69,9 +69,9 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired
 };
 
-const mapDispatchToProps = (dispatch) => ({
+/*const mapDispatchToProps = (dispatch) => ({
   userLoginRequested: () => dispatch(userLoginRequested()),
   loginUser: (username, password) => dispatch(loginUser(username, password)),
 });
 
-export default connect(null, mapDispatchToProps)(LoginView);
+export default connect(null, mapDispatchToProps)(LoginView);*/

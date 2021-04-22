@@ -17,10 +17,10 @@ export class ProfileView extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: "",
-      password: "",
-      email: "",
-      birthday: "",
+      username: null,
+      password: null,
+      email: null,
+      birthday: null,
       favouriteMovies: [],
       movies: "",
     };
@@ -28,7 +28,9 @@ export class ProfileView extends React.Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
-    this.getUser(accessToken);
+    if (accessToken !== null) {
+      this.getUser(accessToken);
+    }
   }
 
   formatDate(date) {

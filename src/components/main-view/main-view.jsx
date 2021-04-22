@@ -19,11 +19,10 @@ import MoviesList from '../movies-list/movies-list';
 
 import "./main-view.scss";
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies: [],
       user: null,
     };
   }
@@ -31,10 +30,9 @@ export class MainView extends React.Component {
   // One of the "hooks" available in a React Component
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
+    let user = localStorage.getItem("user");
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem("user")
-      });
+      this.props.setUser(user);
       this.getMovies(accessToken);
     }
   }
@@ -53,10 +51,7 @@ export class MainView extends React.Component {
 
   onLoggedIn(authData) {
     console.log(authData);
-    this.setState({
-      user: authData.user.Username
-    });
-
+    this.props.setUser(authData.user.Username);
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
     this.getMovies(authData.token);
@@ -65,19 +60,14 @@ export class MainView extends React.Component {
   logOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    this.setState({
-      user: null,
-    });
     console.log("logout successful");
     alert("You have been successfully logged out");
     window.open("/", "_self");
   }
 
   render() {
-    let { movies } = this.props;
-    let { user } = this.state;
-
-    if (!movies) return <div className="main-view" />;
+    let { movies, user } = this.props;
+    // let { user } = this.state;
 
     return (
       <Router>
@@ -101,7 +91,7 @@ export class MainView extends React.Component {
                 </Link>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-                  <Nav className="mr-auto">
+                  <Nav className="menu">
                     <Link to={`/users/${user}`}>
                       <Button className="nav-button" variant="dark" type="link">Account</Button>
                     </Link>
@@ -115,6 +105,7 @@ export class MainView extends React.Component {
         <div className="main-view">
           <Route exact path="/" render={() => {
             if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+            if (movies.length === 0) return <div className="main-view" />;
             return <MoviesList movies={movies} />
           }
           } />
@@ -143,8 +134,9 @@ export class MainView extends React.Component {
           }}
           />
 
-          <Route exact path="/users/:username" render={() =>
-            <ProfileView user={localStorage.getItem("user")} movies={movies} />
+          <Route exact path="/users/:username" render={() => {
+            return <ProfileView movies={movies} />
+          }
           } />
 
           <Route path="/update" render={() => {
@@ -160,8 +152,7 @@ export class MainView extends React.Component {
 let mapStateToProps = state => {
   return {
     movies: state.movies,
-    user: state.user,
-    register: state.register
+    user: state.user
   }
 }
 

@@ -1,0 +1,122 @@
+.login-header {
+  text-align: center;
+}
+
+.login-form {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+}
+
+.btn {
+  margin-right: 20px;
+}
+.header {
+  text-align: center;
+}
+
+.form-register {
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 20px;
+}
+.back-button {
+  margin-top: 10px;
+}
+
+.movie-view {
+  text-align: -webkit-center;
+}
+.director-title, h4 {
+  margin-bottom: 20px;
+}
+
+.button-div {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.director {
+  text-align: center;
+}
+.genre {
+  text-align: center;
+}
+
+.genre-title, h4 {
+  margin-bottom: 20px;
+}
+.profile-button {
+  margin-bottom: 5px;
+}
+
+.remove-favorite {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.profile-details {
+  margin-bottom: 15px;
+}
+
+.userProfile {
+  text-align: center;
+}
+
+.favorite-details {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.favoriteMovies {
+  text-align: -webkit-center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+@media all and (max-width: 768px) {
+  .favoriteMovies {
+    display: block;
+    text-align: -webkit-center;
+  }
+}
+.open-button {
+  margin-top: 10px;
+}
+.menu {
+  margin-right: 0px !important;
+  align-items: flex-end;
+}
+
+.main-view {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.movie-grid {
+  display: grid;
+  margin-top: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+@media all and (max-width: 768px) {
+  .movie-grid {
+    display: grid;
+    margin-top: 20px;
+    grid-template-columns: 1fr;
+    column-gap: 10px;
+    row-gap: 15px;
+  }
+}
+.my-flix {
+  color: steelblue;
+}
+
+.container {
+  padding: 5px;
+}
+/*# sourceMappingURL=index.778c89a2.css.map */
