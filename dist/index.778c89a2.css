@@ -85,8 +85,8 @@
 .open-button {
   margin-top: 10px;
 }
-.mr-auto {
-  margin-right: 0rem !important;
+.menu {
+  margin-right: 0px !important;
   align-items: flex-end;
 }
 
@@ -119,5 +119,4 @@
 .container {
   padding: 5px;
 }
-
-/*# sourceMappingURL=/src.78399e21.css.map */
+/*# sourceMappingURL=index.778c89a2.css.map */
